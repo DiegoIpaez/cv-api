@@ -1,0 +1,46 @@
+const { Schema, model } = require("mongoose");
+
+const DescriptionSchema = new Schema({
+  nombre: {
+    type: String,
+    require: [true, "El nombre es obligatorio"],
+  },
+  profesion: {
+    type: String,
+    require: [true, "El nombre es obligatorio"],
+  },
+  email: {
+    type: String,
+    require: [true, "El nombre es obligatorio"],
+  },
+  descripcion:{
+    type: String,
+    require: [true, "El nombre es obligatorio"],
+  },
+  telefono:{
+    type: Number,
+    default: 0,
+  },
+  ubicacion: {
+    type: String,
+    require: [true, "El nombre es obligatorio"],
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
+    required: true,
+  },
+  estado: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
+});
+
+DescriptionSchema.methods.toJSON = function () {
+  const { __v, estado, ...data } = this.toObject();
+
+  return data;
+};
+
+module.exports = model("Description", DescriptionSchema);
